@@ -621,29 +621,35 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
     
         @Override
         public void goOnAdventure(){
-            System.out.print("""
-                    1. Cave
-                    2. Forest
-                    3. Graveyard
-                    Q for previous menu
-                    Press:\s""");
-            answer = in.next();
-            if(answer.equals("1")){
-                goTo(new Cave());
+            while(true){
+                    System.out.print("""
+                        1. Cave
+                        2. Forest
+                        3. Graveyard
+                        Q for previous menu
+                        Press:\s""");
+                answer = in.next();
+                if(answer.equals("1")){
+                    goTo(new Cave());
+                    break;
+                }
+                else if(answer.equals("2")){
+                    goTo(new Forest());
+                    break;
+                }
+                else if(answer.equals("3")){
+                    goTo(new Graveyard());
+                    break;
+                }
+                else if(answer.equalsIgnoreCase("q")){
+                    System.out.println("Returning to previous menu");
+                    break;
+                }
+                else{
+                    System.out.println("*****Invalid input*****");
+                } 
             }
-            else if(answer.equals("2")){
-                goTo(new Forest());
-            }
-            else if(answer.equals("3")){
-                goTo(new Graveyard());
-            }
-            else if(answer.equalsIgnoreCase("q")){
-                System.out.println("Returning to previous menu");
-            }
-            else{
-                System.out.println("*****Invalid input*****");
-                goOnAdventure();
-            } 
+            
         }
     
         // Below is setter&getter Methods
