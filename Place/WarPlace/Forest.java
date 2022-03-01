@@ -10,7 +10,8 @@ public class Forest extends WarPlace{
     public Forest(){
 
         setMonsters(new ArrayList<>());
-        setNumberOfMonsters(1,4);
+        
+        setNumberOfMonsters(2,4);
         
         for(int i = 0; i < getNumberOfMonsters(); i++){
             getMonsters().add(new Vampire());

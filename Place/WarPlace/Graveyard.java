@@ -9,7 +9,7 @@ public class Graveyard extends WarPlace {
 
     public Graveyard(){
 
-        setNumberOfMonsters(2,5);
+        setNumberOfMonsters(3,5);
 
         setMonsters(new ArrayList<>());
 
