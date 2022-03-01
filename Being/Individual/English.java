@@ -10,11 +10,11 @@ public class English extends Individual{
     public English(){
 
         setName("English");
-        setAttack(10);
-        setInitialAttack(10);
-        setDefense(10);
-        setInitialDefense(10);
-        setMoney(90);
+        setAttack(15);
+        setInitialAttack(15);
+        setDefense(15);
+        setInitialDefense(15);
+        setMoney(100);
         setHealth(100);
         setWornArmor(new Tshirt());
         setWornWeapon(new Knife());

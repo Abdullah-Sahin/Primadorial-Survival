@@ -4,10 +4,10 @@ public class Sword extends Weapon{
 
     public Sword() {
 
-        setAttack(50);
-        setPrice(70);
+        setAttack(15);
+        setPrice(40);
         setUpgradeLevel(0);
         setName("Sword");
-        setInitialAttack(50);
+        setInitialAttack(15);
     }
 }

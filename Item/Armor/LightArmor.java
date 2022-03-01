@@ -4,11 +4,11 @@ public class LightArmor extends Armor{
 
     public LightArmor(){
 
-        setDefense(10);
+        setDefense(5);
         setUpgradeLevel(0);
-        setPrice(25);
+        setPrice(20);
         setName("Light Armor");
-        setInitialDefense(10);
+        setInitialDefense(5);
 
     }
 }

@@ -11,8 +11,8 @@ public class Turk extends Individual{
         setName("Turk");
         setAttack(30);
         setInitialAttack(30);
-        setDefense(10);
-        setInitialDefense(10);
+        setDefense(15);
+        setInitialDefense(15);
         setMoney(20);
         setHealth(100);
         setWornArmor(new Tshirt());

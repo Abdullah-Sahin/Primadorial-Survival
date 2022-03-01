@@ -9,8 +9,8 @@ public class Chinese extends Individual{
 
     public Chinese(){
         setName("Chinese");
-        setAttack(10);
-        setInitialAttack(10);
+        setAttack(15);
+        setInitialAttack(15);
         setDefense(30);
         setInitialDefense(30);
         setMoney(20);

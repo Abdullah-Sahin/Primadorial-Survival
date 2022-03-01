@@ -4,10 +4,10 @@ public class Dagger extends Weapon{
 
     public Dagger() {
 
-        setAttack(10);
-        setPrice(15);
+        setAttack(5);
+        setPrice(20);
         setUpgradeLevel(0);
         setName("Dagger");
-        setInitialAttack(10);
+        setInitialAttack(5);
     }
 }

@@ -13,9 +13,9 @@ public class Snake extends Monster{
     private static Weapon weaponToEarn = new Dagger();
 
     public Snake() {
-        setAttack(10);
-        setDefense(10);
-        setHealth(20);
+        setAttack(20);
+        setDefense(20);
+        setHealth(75);
         setMoneyToEarn(5);
         setType("Snake");
         setChanceOfItem(new Random().nextDouble());

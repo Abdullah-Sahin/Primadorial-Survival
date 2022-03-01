@@ -5,10 +5,10 @@ public class StandardArmor extends Armor{
 
     public StandardArmor() {
 
-        setDefense(20);
+        setDefense(10);
         setUpgradeLevel(0);
-        setPrice(35);
+        setPrice(30);
         setName("Standard Armor");
-        setInitialDefense(20);
+        setInitialDefense(10);
     }
 }

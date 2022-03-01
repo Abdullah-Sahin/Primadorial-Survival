@@ -7,9 +7,9 @@ import Item.Weapon.Bow;
 
 public class Vampire extends Monster{
     public Vampire() {
-        setAttack(20);
-        setDefense(20);
-        setHealth(50);
+        setAttack(30);
+        setDefense(30);
+        setHealth(85);
         setMoneyToEarn(15);
         setType("Vampire");
         setChanceOfItem(new Random().nextDouble());

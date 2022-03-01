@@ -8,9 +8,9 @@ import Item.Weapon.Sword;
 public class Zombie extends Monster{
 
     public Zombie() {
-        setAttack(30);
-        setDefense(30);
-        setHealth(75);
+        setAttack(40);
+        setDefense(40);
+        setHealth(95);
         setMoneyToEarn(25);
         setType("Zombie");
         setChanceOfItem(new Random().nextDouble());
