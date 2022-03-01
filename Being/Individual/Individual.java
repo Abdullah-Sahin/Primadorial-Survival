@@ -61,23 +61,23 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
         @Override
         public void showAllDetails() {
             while(true){
-                if(answer.equalsIgnoreCase("q")){
-                    break;
-                }
                 System.out.println("""
-                    1. To see Health
-                    2. To see Attack
-                    3. To see Defense
-                    4. To see money
-                    5. To see worn weapon
-                    6. To see worn armor
-                    7. To see all items
-                    8. To see collected rewards
-                    Q  To return town cenre
-                    ----------""");
+                1. To see Health
+                2. To see Attack
+                3. To see Defense
+                4. To see money
+                5. To see worn weapon
+                6. To see worn armor
+                7. To see all items
+                8. To see collected rewards
+                Q  To return town cenre
+                ----------""");
                 System.out.print("Press: "); 
                 answer = in.next();
                 System.out.println("----------");
+                if(answer.equalsIgnoreCase("q")){
+                    break;
+                }
                 switch(answer){
                     case "1" -> System.out.println("Your health is " + getHealth() + "/100" + "\n----------");
                     case "2" -> System.out.println("Your Attack: " + getAttack() + "\n----------");
@@ -197,7 +197,7 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                 System.out.println("-------");
             }
             catch(Exception e){
-                System.out.println("You have no weapon in your hands");
+                System.out.println("You seem to have no armor worn");
             }
             
         }
@@ -209,7 +209,7 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                 System.out.println("-------");
             }
             catch(Exception e){
-                System.out.println("You seem to have worn no armor");
+                System.out.println("Your hands are free, no weapon");
             }
             
         }
@@ -424,13 +424,14 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
             Armor armorToUpgrade = chooseArmor();
             if(armorToUpgrade == null) System.out.println("----------");
             else if((getMoney() < ((armorToUpgrade.getRuquiredMoneyToUpgrade())) || armorToUpgrade.getUpgradeLevel() == 5)){
-                if(getMoney() < (armorToUpgrade.getRuquiredMoneyToUpgrade())){
+                
+                if(armorToUpgrade.getUpgradeLevel() == 5){
+                    System.out.println("Armor can't be upgraded more");
+                }
+                else{
                     System.out.println("You don't have enough money.\n" +
                             " Money needed: " + (armorToUpgrade.getRuquiredMoneyToUpgrade() - getMoney()));
-                }
-                
-                if(armorToUpgrade.getUpgradeLevel() == 5)
-                System.out.println("Armor can't be upgraded more");
+                }  
             }
             else{
                 BlackSmith.upgradeArmor(armorToUpgrade);
@@ -452,12 +453,13 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
             Weapon weaponToUpgrade = chooseWeapon();
             if(weaponToUpgrade == null) System.out.println("----------");
             else if(getMoney() < weaponToUpgrade.getRuquiredMoneyToUpgrade() || weaponToUpgrade.getUpgradeLevel() == 5) {
-                if (getMoney() < weaponToUpgrade.getRuquiredMoneyToUpgrade()){
+                if (weaponToUpgrade.getUpgradeLevel() == 5)
+                    System.out.println("Weapon can't be upgraded more");
+
+                else{
                     System.out.println("You don't have enough money.\n" +
                     " Money needed: " + (weaponToUpgrade.getRuquiredMoneyToUpgrade() - getMoney()));
                 }
-                if (weaponToUpgrade.getUpgradeLevel() == 5)
-                    System.out.println("Weapon can't be upgraded more");
             }
             else{
                 BlackSmith.upgradeWeapon(weaponToUpgrade);
@@ -505,8 +507,10 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                     hit(monster);
                     System.out.println("You hit" + monster.getType() + "\nRemaining " + monster.getType() + " health: " + monster.getHealth());
                     if(monster.getHealth() <= 0){
-                        System.out.println(monster.getType() +" died");
                         setMoney(getMoney() + monster.getMoneyToEarn());
+                        System.out.println(monster.getType() + " died\n" + 
+                                    + monster.getMoneyToEarn() + " golds earned.\n" + 
+                                    "New money: " + getMoney());
                         if(monster.getArmorToEarn() != null){
                             armors.add(monster.getArmorToEarn());
                             allItems.add(monster.getArmorToEarn());
@@ -515,7 +519,7 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                         if(monster.getWeaponToEarn() != null){
                             weapons.add(monster.getWeaponToEarn());
                             allItems.add(monster.getWeaponToEarn());
-                            System.out.println("Earned armor: " + monster.getArmorToEarn().getName());
+                            System.out.println("Earned weapon: " + monster.getWeaponToEarn().getName());
                         }
                         break;
                     }
@@ -526,25 +530,27 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                 }
                 else if(answer.equals("2")){
                     superHit(monster);
-                    System.out.println("You hit" + monster.getType() + "\nRemaining " + monster.getType() + " health: " + monster.getHealth());
+                    System.out.println("You super-hit" + monster.getType() + "\nRemaining " + monster.getType() + " health: " + monster.getHealth());
                     if(monster.getHealth() <= 0) {
-                        System.out.println(monster.getType() +" died");
                         setMoney(getMoney() + monster.getMoneyToEarn());
+                        System.out.println(monster.getType() + " died\n" + 
+                                    + monster.getMoneyToEarn() + " golds earned.\n" + 
+                                    "New money: " + getMoney());
                         if(monster.getArmorToEarn() != null){
                             armors.add(monster.getArmorToEarn());
                             allItems.add(monster.getArmorToEarn());
                             System.out.println("Earned armor: " + monster.getArmorToEarn().getName());
                         }
-                        if(monster.getArmorToEarn() != null){
-                            armors.add(monster.getArmorToEarn());
-                            allItems.add(monster.getArmorToEarn());
-                            System.out.println("Earned armor: " + monster.getArmorToEarn().getName());
+                        if(monster.getWeaponToEarn() != null){
+                            weapons.add(monster.getWeaponToEarn());
+                            allItems.add(monster.getWeaponToEarn());
+                            System.out.println("Earned weapon: " + monster.getWeaponToEarn().getName());
                         }
                         break;
                     }
                     else{
                         monster.hit(this);
-                        System.out.println("Monster hit you\nRemainin health: " + getHealth());
+                        System.out.println(monster.getType() + " hit you\nRemainin health: " + getHealth());
                     }
                 }
                 else if(answer.equals("3")) System.out.println("Your health: " + getHealth());
@@ -559,55 +565,62 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
         @Override
         public void goTo(WarPlace warPlace){
             ArrayList<Monster> monsters = warPlace.getMonsters();
-            System.out.println("You're in " + warPlace.getName() + "\n" +
+            System.out.println("********************\nYou're in " + warPlace.getName() + "\n" +
                     "There are " + monsters.size() + " " + monsters.get(0).getType() + "s");
             for (int i = 1; i <= monsters.size(); i++) {
                 if(monsters.get(i-1).getArmorToEarn() == null && monsters.get(i-1).getWeaponToEarn() == null){
-                    System.out.println("**********\n" +
+                    System.out.println("********************\n" +
                                 "Features of " + monsters.get(i-1).getType() + i + "\n" +
                                 "Attack: " + monsters.get(i-1).getAttack() + "\n" +
                                 "Defense: " + monsters.get(i-1).getDefense() + "\n" +
                                 "Health: " + monsters.get(i-1).getHealth() + "\n" +
                                 "Possible armor: None\n" +
-                                "Possible weapon: None\n***************");
+                                "Possible weapon: None\n********************");
                     System.out.println(i + ". " + monsters.get(i-1).getType() + " has come.");
                     oneToOne(monsters.get(i-1));
                 }
                 else if(monsters.get(i-1).getArmorToEarn() != null && monsters.get(i-1).getWeaponToEarn() == null){
-                    System.out.println("**********\n" +
+                    System.out.println("********************\n" +
                                 "Features of " + monsters.get(i-1).getType() + i + "\n" +
                                 "Attack: " + monsters.get(i-1).getAttack() + "\n" +
                                 "Defense: " + monsters.get(i-1).getDefense() + "\n" +
                                 "Health: " + monsters.get(i-1).getHealth() + "\n" +
                                 "Possible armor: " + monsters.get(i-1).getArmorToEarn().getName() + "\n" +
-                                "Possible weapon: None\n***************");
+                                "Possible weapon: None\n********************");
                     System.out.println(i + ". " + monsters.get(i-1).getType() + " has come.");
                     oneToOne(monsters.get(i-1));
                 }
                 else if(monsters.get(i-1).getArmorToEarn() == null && monsters.get(i-1).getWeaponToEarn() != null){
-                    System.out.println("**********\n" +
+                    System.out.println("********************\n" +
                                 "Features of " + monsters.get(i-1).getType() + i + "\n" +
                                 "Attack: " + monsters.get(i-1).getAttack() + "\n" +
                                 "Defense: " + monsters.get(i-1).getDefense() + "\n" +
                                 "Health: " + monsters.get(i-1).getHealth() + "\n" +
                                 "Possible armor: None\n" +
-                                "Possible weapon: " + monsters.get(i-1).getWeaponToEarn().getName() + "\n***************");
+                                "Possible weapon: " + monsters.get(i-1).getWeaponToEarn().getName() + "\n********************");
                     System.out.println(i + ". " + monsters.get(i-1).getType() + " has come.");
                     oneToOne(monsters.get(i-1));
                 }
                 else{
-                    System.out.println("**********\n" +
+                    System.out.println("********************\n" +
                                 "Features of " + monsters.get(i-1).getType() + " " + i + "\n" +
                                 "Attack: " + monsters.get(i-1).getAttack() + "\n" +
                                 "Defense: " + monsters.get(i-1).getDefense() + "\n" +
                                 "Health: " + monsters.get(i-1).getHealth() + "\n" +
                                 "Possible armor: " + monsters.get(i-1).getArmorToEarn().getName() + "\n" +
-                                "Possible weapon: " + monsters.get(i-1).getWeaponToEarn().getName() + "\n***************");
+                                "Possible weapon: " + monsters.get(i-1).getWeaponToEarn().getName() + "\n********************");
                     System.out.println(i + ". " + monsters.get(i-1).getType() + " has come.");
                     oneToOne(monsters.get(i-1));
                 }   
             }
-            if(monsters.get(monsters.size() - 1).getHealth() <= 0){
+            boolean allMonstersDead = true;
+            for (Monster monster : monsters) {
+                if(monster.getHealth() > 0){
+                    allMonstersDead = false;
+                }
+            }
+
+            if(allMonstersDead){
     
                 String reward = warPlace.getReward().getName().toLowerCase();
     
@@ -648,8 +661,7 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                 else{
                     System.out.println("*****Invalid input*****");
                 } 
-            }
-            
+            }   
         }
     
         // Below is setter&getter Methods
