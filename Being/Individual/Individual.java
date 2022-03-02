@@ -217,33 +217,33 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
         @Override
         public void buyArmor() {
             while(true){
-            System.out.println("You have " + getMoney() + " golds");
-            Shop.showArmorTypes();
-            System.out.print("Press: ");
-            answer = in.next();
-            System.out.println("----------");
-            if(answer.equalsIgnoreCase("q")){
-                System.out.println("Returning to shop menu"); 
-                break;
-            }
-            try{
-                Armor armorToBuy = Shop.getArmors()[Integer.parseInt(answer)-1];
-                if (getMoney() < armorToBuy.getPrice()) {
-                    System.out.println("You don't have enough money.\nMissing money: " +
-                        (armorToBuy.getPrice() - getMoney()) + " golds.\n----------");
-                }
-                else{
-                    allItems.add(armorToBuy);
-                    armors.add(armorToBuy);
-                    setMoney(getMoney() - armorToBuy.getPrice());
-                    System.out.println("Item purchased: " + armorToBuy.getName());
-                    System.out.println("Remaining money: " + getMoney() + " golds.\n----------");
+                System.out.println("You have " + getMoney() + " golds");
+                Shop.showArmorTypes();
+                System.out.print("Press: ");
+                answer = in.next();
+                System.out.println("----------");
+                if(answer.equalsIgnoreCase("q")){
+                    System.out.println("Returning to shop menu"); 
                     break;
                 }
-            }
-            catch(Exception e){
-                System.out.println("*****INVALID INPUT*****");
-            }
+                try{
+                    Armor armorToBuy = Shop.getArmors()[Integer.parseInt(answer)-1];
+                    if (getMoney() < armorToBuy.getPrice()) {
+                        System.out.println("You don't have enough money.\nMissing money: " +
+                            (armorToBuy.getPrice() - getMoney()) + " golds.\n----------");
+                    }
+                    else{
+                        allItems.add(armorToBuy);
+                        armors.add(armorToBuy);
+                        setMoney(getMoney() - armorToBuy.getPrice());
+                        System.out.println("Item purchased: " + armorToBuy.getName());
+                        System.out.println("Remaining money: " + getMoney() + " golds.\n----------");
+                        break;
+                    }
+                }
+                catch(Exception e){
+                    System.out.println("*****INVALID INPUT*****");
+                }
                 
             }
         }
@@ -426,11 +426,12 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
             else if((getMoney() < ((armorToUpgrade.getRuquiredMoneyToUpgrade())) || armorToUpgrade.getUpgradeLevel() == 5)){
                 
                 if(armorToUpgrade.getUpgradeLevel() == 5){
-                    System.out.println("Armor can't be upgraded more");
+                    System.out.println("Armor can't be upgraded more\n**********");
                 }
                 else{
                     System.out.println("You don't have enough money.\n" +
-                            " Money needed: " + (armorToUpgrade.getRuquiredMoneyToUpgrade() - getMoney()));
+                            " Money needed: " + (armorToUpgrade.getRuquiredMoneyToUpgrade() - getMoney())
+                            + "\n**********");
                 }  
             }
             else{
@@ -438,7 +439,8 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                 setMoney(getMoney() - ((armorToUpgrade.getUpgradeLevel() * 3)));
             }
             try{
-                System.out.println(armorToUpgrade.getName() + " + " + armorToUpgrade.getUpgradeLevel());
+                System.out.println(armorToUpgrade.getName() + " + " + armorToUpgrade.getUpgradeLevel()
+                + "\n**********");
                 setAttackAndDefense();
             }
             catch(Exception e){
@@ -505,7 +507,10 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                 if(answer.equalsIgnoreCase("q")) break;
                 else if(answer.equals("1")){
                     hit(monster);
-                    System.out.println("You hit" + monster.getType() + "\nRemaining " + monster.getType() + " health: " + monster.getHealth());
+                    System.out.println("----------\nYou hit" 
+                    + monster.getType() + "\nRemaining " + monster.getType() +
+                     " health: " + monster.getHealth() +
+                     "\n----------");
                     if(monster.getHealth() <= 0){
                         setMoney(getMoney() + monster.getMoneyToEarn());
                         System.out.println(monster.getType() + " died\n" + 
@@ -550,7 +555,7 @@ public abstract class Individual extends Being implements IIndividualAction, ISh
                     }
                     else{
                         monster.hit(this);
-                        System.out.println(monster.getType() + " hit you\nRemainin health: " + getHealth());
+                        System.out.println(monster.getType() + " hit you\nRemainin health: " + getHealth() + "\n---------- ");
                     }
                 }
                 else if(answer.equals("3")) System.out.println("Your health: " + getHealth());
